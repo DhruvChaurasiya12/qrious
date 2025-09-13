@@ -1,6 +1,6 @@
 import { useState } from "react";
-
-export default function GameQA({ gameCollections }) {
+import "./game2.css";
+export default function GameQA() {
   const questions = [
     {
       q: "What is 2 + 2?",
@@ -38,18 +38,17 @@ export default function GameQA({ gameCollections }) {
     }, 1000);
   };
 
+  // Determine the CSS class for each button based on its state
+  const getButtonClass = (opt) => {
+    let className = "option-button";
+    if (selected === opt) {
+      className += opt === currentQuestion.answer ? " correct" : " incorrect";
+    }
+    return className;
+  };
+
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        padding: "20px",
-        fontFamily: "Arial",
-        color: "#333",
-        background: "#f4f4f4",
-        boxSizing: "border-box",
-      }}
-    >
+    <div className="game-qa-container">
       <h2>Question & Answer Game</h2>
       <p>
         <strong>Score:</strong> {score}
@@ -57,29 +56,13 @@ export default function GameQA({ gameCollections }) {
 
       <h3>{currentQuestion.q}</h3>
 
-      <div style={{ marginTop: "15px" }}>
+      <div className="options-container">
         {currentQuestion.options.map((opt) => (
           <button
             key={opt}
             onClick={() => handleAnswer(opt)}
             disabled={selected !== null}
-            style={{
-              display: "block",
-              width: "100%",
-              padding: "10px",
-              margin: "8px 0",
-              background:
-                selected === opt
-                  ? opt === currentQuestion.answer
-                    ? "green"
-                    : "red"
-                  : "#007bff",
-              color: "white",
-              border: "none",
-              borderRadius: "6px",
-              cursor: "pointer",
-              fontSize: "16px",
-            }}
+            className={getButtonClass(opt)}
           >
             {opt}
           </button>

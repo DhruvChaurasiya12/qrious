@@ -1,21 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 :root {
-  --cerulean: #0081a7ff;
-  --verdigris: #00afb9ff;
-  --light-yellow: #fdfcdcff;
-  --light-orange: #fed9b7ff;
-  --bittersweet: #f07167ff;
-  --black: #000000ff;
-  --white: #ffffffff;
-  --gray: #808080ff;
-  --dark-gray: #404040ff;
-
-  --primary-color: var(--verdigris);
-  --secondary-color: var(--cerulean);
-  --background-color: var(--light-yellow);
-  --text-color: var(--black);
+  --primary-color: #1a1a2e; /* Dark, purplish blue */
+  --secondary-color: #16213e; /* Slightly lighter dark blue */
+  --accent-color: #e94560; /* A pop of vivid red/pink */
+  --text-color: #f0f0f0; /* Soft white for readability */
+  --light-gray: #b0bec5; /* Muted gray for subtle text */
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --font-family-primary: "Open Sans", sans-serif;
   --font-family: "Open Sans", sans-serif;
+  --background-color: #0f121d; /* Very dark background */
 }
 
 body {

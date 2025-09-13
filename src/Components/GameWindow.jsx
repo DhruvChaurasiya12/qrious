@@ -2,6 +2,8 @@ import "./gamewindow.css";
 import viteLogo from "/vite.svg";
 import Game1 from "./Games/game1";
 import Game2 from "./Games/game2";
+import Game3 from "./Games/game3";
+import Game4 from "./Games/game4";
 import { useEffect, useRef, useState } from "react";
 import gameData from "../utitlities";
 import ResizeObserver from "resize-observer-polyfill";
@@ -84,7 +86,6 @@ export default () => {
   // Render loop
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("Rendering game frame");
       gameCollections.onrender();
     }, 1000 / 60);
     return () => clearInterval(interval);
@@ -92,7 +93,7 @@ export default () => {
 
   return (
     <div className="main-content" ref={windowRef} tabIndex={0}>
-      <Game2 gameCollections={gameCollections} />
+      <Game1 gameCollections={gameCollections} />
     </div>
   );
 };

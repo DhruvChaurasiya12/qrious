@@ -1,0 +1,176 @@
+/* Custom CSS Variables */
+:root {
+  --primary-color: #1a1a2e; /* Dark, purplish blue */
+  --secondary-color: #16213e; /* Slightly lighter dark blue */
+  --accent-color: #e94560; /* A pop of vivid red/pink */
+  --text-color: #f0f0f0; /* Soft white for readability */
+  --light-gray: #b0bec5; /* Muted gray for subtle text */
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --font-family-primary: "Roboto", sans-serif;
+}
+
+/* Base Styles */
+body {
+  background-color: #0f121d; /* Very dark background */
+  color: var(--text-color);
+  font-family: var(--font-family-primary);
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidepane Container */
+.sidepane {
+  width: 100%;
+  height: 100vh;
+  background: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid #2c3e50; /* A darker border */
+  box-shadow: var(--box-shadow);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--secondary-color);
+}
+
+/* Custom scrollbar for Webkit browsers */
+.sidepane::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidepane::-webkit-scrollbar-track {
+  background: var(--secondary-color);
+}
+
+.sidepane::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 4px;
+}
+
+/* Main Header */
+.sidepane-header {
+  padding: 1.5rem 2rem; /* Increased padding */
+  font-size: 2rem; /* Larger font size */
+  font-weight: 700;
+  background-color: var(--primary-color);
+  border-radius: 0; /* Remove border-radius for a cleaner look */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  color: var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Main heading within the sidepane */
+.sidepane h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.sidepane h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px; /* A small underline effect */
+  height: 3px;
+  background: var(--accent-color);
+}
+
+/* Video Section */
+.sidepane-video {
+  height: auto; /* Use auto for responsiveness */
+  padding: 1.5rem;
+  margin: 1.5rem;
+  box-shadow: var(--box-shadow);
+  background-color: var(--primary-color);
+  border-radius: 12px; /* Softer rounded corners */
+}
+
+.video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Modern way to maintain aspect ratio */
+  border: none;
+  border-radius: 8px;
+}
+
+/* Content Sections */
+.sidepane-section {
+  background: var(--primary-color);
+  padding: 1.5rem; /* Consistent padding */
+  margin: 1.5rem;
+  border-radius: 12px;
+  color: var(--text-color);
+  box-shadow: var(--box-shadow);
+}
+
+.sidepane-section h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: var(--light-gray);
+  position: relative;
+}
+
+.sidepane-section h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 30px;
+  height: 2px;
+  background: var(--accent-color);
+}
+
+.sidepane-section ul {
+  list-style-type: none; /* Remove default bullets */
+  padding-left: 0;
+  margin: 0;
+}
+
+.sidepane-section li {
+  position: relative;
+  padding-left: 1.5rem; /* Space for custom bullet */
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--light-gray);
+}
+
+.sidepane-section li::before {
+  content: "•"; /* Use a custom bullet point */
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  position: absolute;
+  left: 0;
+  top: -3px;
+}
+
+.sidepane-section a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.sidepane-section a:hover {
+  text-decoration: underline;
+  color: var(--text-color);
+}
+
+/* Animation Keys */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
