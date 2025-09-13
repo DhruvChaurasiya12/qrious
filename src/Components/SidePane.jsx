@@ -3,6 +3,25 @@ import { useContext } from "react";
 import { GameContext } from "./GameContext";
 import "./sidepane.css";
 
+function ShiningLoader({ message = "Loading..." }) {
+  return (
+    <div className="video-frame">
+      <div className="shining-box">{message}</div>
+    </div>
+  );
+}
+
+function ShiningText({ message = "Loading..." }) {
+  return (
+    <div>
+      <div className="shining-text">{message}</div>
+      <div className="shining-text">{message}</div>
+      <div className="shining-text">{message}</div>
+      <div className="shining-text">{message}</div>
+    </div>
+  );
+}
+
 const SidePane = () => {
   const {
     title,
@@ -25,60 +44,83 @@ const SidePane = () => {
       {/* Video Section */}
       {videoUrls && (
         <div className="sidepane-video">
-          {videoUrls.map((videoUrl, idx) => (
-            <iframe
-              key={keyid++}
-              className="video-frame"
-              src={videoUrl}
-              title="Hint Video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
-          ))}
+          <h3>💡 Videos</h3>
+          {videoUrls.length > 0 ? (
+            videoUrls.map((videoUrl, idx) => (
+              <iframe
+                key={keyid++}
+                className="video-frame"
+                src={videoUrl}
+                title="Hint Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
+            ))
+          ) : (
+            <ShiningLoader message="Video Loading" />
+          )}
         </div>
       )}
 
       {/* Hint Section */}
-      {hints.length > 0 && (
+      {hints && (
         <div className="sidepane-section">
           <h3>💡 Hints</h3>
-          <ul>
-            {hints.map((hint, idx) => (
-              <li key={idx}>{hint}</li>
-            ))}
-          </ul>
+          {hints.length > 0 ? (
+            <ul>
+              {hints.map((hint, idx) => (
+                <li key={idx}>{hint}</li>
+              ))}
+            </ul>
+          ) : (
+            <ShiningText message="loading ..." />
+          )}
         </div>
       )}
 
       {/* Theory Section */}
-      {theory.length > 0 && (
+      {theory && (
         <div className="sidepane-section">
           <h3>📖 Theory</h3>
-          <ul>
-            {theory.map((point, idx) => (
-              <li key={idx}>{point}</li>
-            ))}
-          </ul>
+          {theory.length > 0 ? (
+            <ul>
+              {theory.map((point, idx) => (
+                <li key={idx}>{point}</li>
+              ))}
+            </ul>
+          ) : (
+            <ShiningText message="loading ..." />
+          )}
         </div>
       )}
 
       {/* Extra Resources */}
-      <div className="sidepane-section">
-        <h3>📚 Resources</h3>
-        <ul>
-          {references.map((ref, idx) => {
-            return (
-              <li key={idx}>
-                <a href={ref.link} target="_blank" rel="noopener noreferrer">
-                  {ref.title}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      {references && (
+        <div className="sidepane-section">
+          <h3>📚 Resources</h3>
+          {references.length > 0 ? (
+            <ul>
+              {references.map((ref, idx) => {
+                return (
+                  <li key={idx}>
+                    <a
+                      href={ref.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {ref.title}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <ShiningText message="loading..." />
+          )}
+        </div>
+      )}
     </div>
   );
 };

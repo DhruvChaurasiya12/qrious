@@ -1,7 +1,7 @@
 import "./gamewindow.css";
 import viteLogo from "/vite.svg";
 import { gameCollectionList } from "./GameCollections";
-import { useContext, useEffect, useRef, useState } from "react";
+import { lazy, useContext, useEffect, useRef, useState } from "react";
 import gameData from "../utitlities";
 import ResizeObserver from "resize-observer-polyfill";
 import { GameListContext } from "./GameContext";
@@ -15,10 +15,23 @@ const GameEventType = {
   KeyUp: "KEY_UP",
 };
 
+const SpinnerWindow = ({ message }) => {
+  return (
+    <div className="spinner-container">
+      <div className="spinner-child"></div>
+      <div className="spinner-message">{message}</div>
+    </div>
+  );
+};
+
 export default () => {
   const dimRef = useRef({ width: 300, height: 300 });
   const windowRef = useRef(null);
   const { gameIndex, setGameIndex } = useContext(GameListContext);
+  const [CurrentGame, setCurrentGame] = useState(null);
+
+  const [gameLoading, setGameLoading] = useState(true);
+  const [gameName, setGameName] = useState("...");
 
   // Setup resize observer
   useEffect(() => {
@@ -39,27 +52,27 @@ export default () => {
   }, []);
 
   // Game collection object
-  const gameCollections = {
+  const gameCollections = useRef({
     state: 1,
     dimensions: dimRef,
     onrender: () => {},
     eventHandler: (type, event) => {
       console.log("Unhandled event:", type, event);
     },
-  };
+  });
 
   // Centralized event listeners
   useEffect(() => {
     const handleMouseDown = (e) =>
-      gameCollections.eventHandler(GameEventType.MouseDown, e);
+      gameCollections.current.eventHandler(GameEventType.MouseDown, e);
     const handleMouseUp = (e) =>
-      gameCollections.eventHandler(GameEventType.MouseUp, e);
+      gameCollections.current.eventHandler(GameEventType.MouseUp, e);
     const handleMouseMove = (e) =>
-      gameCollections.eventHandler(GameEventType.MouseMove, e);
+      gameCollections.current.eventHandler(GameEventType.MouseMove, e);
     const handleKeyDown = (e) =>
-      gameCollections.eventHandler(GameEventType.KeyDown, e);
+      gameCollections.current.eventHandler(GameEventType.KeyDown, e);
     const handleKeyUp = (e) =>
-      gameCollections.eventHandler(GameEventType.KeyUp, e);
+      gameCollections.current.eventHandler(GameEventType.KeyUp, e);
 
     const node = windowRef.current;
 
@@ -85,14 +98,25 @@ export default () => {
   // Render loop
   useEffect(() => {
     const interval = setInterval(() => {
-      gameCollections.onrender();
+      gameCollections.current.onrender();
     }, 1000 / 60);
     return () => clearInterval(interval);
   }, []);
-  const CurrentGame = gameCollectionList[gameIndex].component;
+
+  useEffect(() => {
+    setCurrentGame(lazy(() => import(gameCollectionList[gameIndex].component)));
+    setGameLoading(true);
+    setGameName(gameCollectionList[gameIndex].name);
+    setTimeout(() => setGameLoading(false), 4000);
+  }, [gameIndex]);
+
   return (
     <div className="main-content" ref={windowRef} tabIndex={0}>
-      <CurrentGame gameCollections={gameCollections} />
+      {gameLoading ? (
+        <SpinnerWindow message={`loading ${gameName.substring(0, 5)}...`} />
+      ) : (
+        <CurrentGame gameCollections={gameCollections.current} />
+      )}
     </div>
   );
 };

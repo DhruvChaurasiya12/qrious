@@ -92,7 +92,7 @@ export default function GameSnake({ gameCollections }) {
     canvas.width = width;
     canvas.height = height; // Background color from the theme: --secondary-color
 
-    ctx.fillStyle = "#16213e";
+    ctx.fillStyle = "#1a1a2e";
     ctx.fillRect(0, 0, width, height); // Move snake
 
     const snake = [...snakeRef.current];
