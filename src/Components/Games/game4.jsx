@@ -384,7 +384,7 @@ export default function Game4({ gameCollections }) {
             fontWeight: "bold",
             color: "#64B5F6",
           }}>
-            {userFillPercentage}% Full
+            {/* {userFillPercentage}% Full */}
           </div>
         </div>
       </div>

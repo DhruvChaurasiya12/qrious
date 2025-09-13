@@ -93,7 +93,7 @@ export default () => {
 
   return (
     <div className="main-content" ref={windowRef} tabIndex={0}>
-      <Game2 gameCollections={gameCollections} />
+      <Game4 gameCollections={gameCollections} />
     </div>
   );
 };
