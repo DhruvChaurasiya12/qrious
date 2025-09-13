@@ -1,12 +1,10 @@
 import "./gamewindow.css";
 import viteLogo from "/vite.svg";
-import Game1 from "./Games/game1";
-import Game2 from "./Games/game2";
-import Game3 from "./Games/game3";
-import Game4 from "./Games/game4";
-import { useEffect, useRef, useState } from "react";
+import { gameCollectionList } from "./GameCollections";
+import { useContext, useEffect, useRef, useState } from "react";
 import gameData from "../utitlities";
 import ResizeObserver from "resize-observer-polyfill";
+import { GameListContext } from "./GameContext";
 
 // Enum-like event states
 const GameEventType = {
@@ -20,6 +18,7 @@ const GameEventType = {
 export default () => {
   const dimRef = useRef({ width: 300, height: 300 });
   const windowRef = useRef(null);
+  const { gameIndex, setGameIndex } = useContext(GameListContext);
 
   // Setup resize observer
   useEffect(() => {
@@ -90,10 +89,10 @@ export default () => {
     }, 1000 / 60);
     return () => clearInterval(interval);
   }, []);
-
+  const CurrentGame = gameCollectionList[gameIndex].component;
   return (
     <div className="main-content" ref={windowRef} tabIndex={0}>
-      <Game1 gameCollections={gameCollections} />
+      <CurrentGame gameCollections={gameCollections} />
     </div>
   );
 };

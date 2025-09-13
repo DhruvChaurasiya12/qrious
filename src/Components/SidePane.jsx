@@ -1,16 +1,22 @@
 import React from "react";
 import { useContext } from "react";
-import { GameContext } from "../Components/GameContext";
+import { GameContext } from "./GameContext";
 import "./sidepane.css";
 
 const SidePane = () => {
   const {
     title,
+    setTitle,
     videoUrls,
-    hints,
+    setVideoUrls,
     theory,
+    setTheory,
     references,
+    setReferences,
+    hints,
+    setHints,
   } = useContext(GameContext);
+  let keyid = 1212;
   return (
     <div className="sidepane">
       {/* Header with typing effect */}
@@ -21,6 +27,7 @@ const SidePane = () => {
         <div className="sidepane-video">
           {videoUrls.map((videoUrl, idx) => (
             <iframe
+              key={keyid++}
               className="video-frame"
               src={videoUrl}
               title="Hint Video"
@@ -62,7 +69,13 @@ const SidePane = () => {
         <h3>📚 Resources</h3>
         <ul>
           {references.map((ref, idx) => {
-            return "Working";
+            return (
+              <li key={idx}>
+                <a href={ref.link} target="_blank" rel="noopener noreferrer">
+                  {ref.title}
+                </a>
+              </li>
+            );
           })}
         </ul>
       </div>

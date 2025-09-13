@@ -1,6 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { GameContext } from "../GameContext";
 import "./game2.css";
 export default function GameQA() {
+  const {
+    title,
+    setTitle,
+    videoUrls,
+    setVideoUrls,
+    theory,
+    setTheory,
+    references,
+    setReferences,
+    hints,
+    setHints,
+  } = useContext(GameContext);
+
+  useEffect(() => {
+    setTitle("Question & Answer Game");
+    setVideoUrls([
+      "https://www.youtube.com/embed/8mAITcNt710?si=U6YqX5P2kX1JH8bV",
+    ]);
+    setTheory([
+      "This is a simple Q&A game to test your knowledge.",
+      "Select the correct answer from the options provided.",
+      "Your score will be tracked as you answer questions.",
+    ]);
+    setReferences([
+      {
+        title: "Quiz Game - Wikipedia",
+        link: "https://en.wikipedia.org/wiki/Quiz_game",
+      },
+      {
+        title: "How to Create a Quiz Game",
+        link: "https://www.wikihow.com/Make-a-Quiz-Game",
+      },
+    ]);
+    setHints([
+      "Read each question carefully before answering.",
+      "Try to eliminate obviously wrong answers first.",
+      "Keep track of your score as you progress.",
+    ]);
+  }, []);
+
   const questions = [
     {
       q: "What is 2 + 2?",

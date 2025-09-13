@@ -1,36 +1,53 @@
 import { useEffect, useRef } from "react";
+import { useContext } from "react";
+import { GameContext } from "./../GameContext";
 
 const GameEventType = {
   KeyDown: "KEY_DOWN",
 };
 
 export default function GameSnake({ gameCollections }) {
-  const dimRef = gameCollections.dimensions; // Snake state
-  gameCollections.setTitle("Snake Game");
-  gameCollections.setUrls([
-    "https://www.youtube.com/embed/3Xc3CA655Y4?si=U1eXz9kYbG5m1m8R",
-  ]);
-  gameCollections.setTheory([
-    "The snake moves in a grid and grows longer when it eats food.",
-    "Use arrow keys to change the snake's direction.",
-    "The game ends if the snake runs into itself.",
-  ]);
-  gameCollections.setReference([
-    {
-      title: "Snake Game - Wikipedia",
-      link: "https://en.wikipedia.org/wiki/Snake_(video_game_genre)",
-    },
-    {
-      title: "How to Play Snake",
-      link: "https://www.wikihow.com/Play-Snake",
-    },
-  ]);
+  const {
+    title,
+    setTitle,
+    videoUrls,
+    setVideoUrls,
+    theory,
+    setTheory,
+    references,
+    setReferences,
+    hints,
+    setHints,
+  } = useContext(GameContext);
 
-  gameCollections.setHints([
-    "Use the arrow keys to control the snake's direction.",
-    "Try to eat the food (red square) to grow longer.",
-    "Avoid running into yourself!",
-  ]);
+  useEffect(() => {
+    setTitle("Snake Game");
+    setVideoUrls([
+      "https://www.youtube.com/embed/3Xc3CA655Y4?si=U1eXz9kYbG5m1m8R",
+    ]);
+    setTheory([
+      "The snake moves in a grid and grows longer when it eats food.",
+      "Use arrow keys to change the snake's direction.",
+      "The game ends if the snake runs into itself.",
+    ]);
+    setReferences([
+      {
+        title: "Snake Game - Wikipedia",
+        link: "https://en.wikipedia.org/wiki/Snake_(video_game_genre)",
+      },
+      {
+        title: "How to Play Snake",
+        link: "https://www.wikihow.com/Play-Snake",
+      },
+    ]);
+
+    setHints([
+      "Use the arrow keys to control the snake's direction.",
+      "Try to eat the food (red square) to grow longer.",
+      "Avoid running into yourself!",
+    ]);
+  }, []);
+  const dimRef = gameCollections.dimensions; // Snake state
 
   const snakeRef = useRef([
     { x: 5, y: 5 }, // initial position
@@ -40,6 +57,8 @@ export default function GameSnake({ gameCollections }) {
   const gridSize = 20; // cell size // Update direction from keypress
 
   useEffect(() => {
+    gameCollections.onrender = renderer;
+
     gameCollections.eventHandler = (type, e) => {
       if (type === GameEventType.KeyDown) {
         switch (e.key) {
@@ -58,9 +77,10 @@ export default function GameSnake({ gameCollections }) {
         }
       }
     };
-  }, [gameCollections]); // Snake render loop
+  }, []); // Snake render loop
   const speed = 10;
   let iterator = 0;
+
   const renderer = () => {
     const canvas = document.getElementById("snakeCanvas");
     if (!canvas) return;
@@ -119,9 +139,9 @@ export default function GameSnake({ gameCollections }) {
     });
   }; // Attach renderer
 
-  if (gameCollections.onrender !== renderer) {
-    gameCollections.onrender = renderer;
-  }
+  useEffect(() => {
+    console.log("re-rendering component");
+  }, []);
 
   return <canvas id="snakeCanvas"></canvas>;
 }

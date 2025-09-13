@@ -1,31 +1,37 @@
-import { use, useContext } from "react";
+import { useState, createContext } from "react";
 
-export const GameContext = useContext();
+const GameContext = createContext(null);
+const GameListContext = createContext(null);
 
-const GameContextProvider = ({ children }) => {
+const GameProvider = ({ children }) => {
+  const [gameIndex, setGameIndex] = useState(0);
   const [title, setTitle] = useState("no title");
   const [videoUrls, setVideoUrls] = useState([]);
   const [theory, setTheory] = useState([]);
   const [references, setReferences] = useState([]);
   const [hints, setHints] = useState([]);
 
-  return;
-  <GameContext.Provider
-    value={
-      (title,
-      setTitle,
-      videoUrls,
-      setVideoUrls,
-      theory,
-      setTheory,
-      references,
-      setReferences,
-      hints,
-      setHints)
-    }
-  >
-    {children}
-  </GameContext.Provider>;
+  return (
+    <GameListContext.Provider value={{ gameIndex, setGameIndex }}>
+      <GameContext.Provider
+        value={{
+          title,
+          setTitle,
+          videoUrls,
+          setVideoUrls,
+          theory,
+          setTheory,
+          references,
+          setReferences,
+          hints,
+          setHints,
+        }}
+      >
+        {children}
+      </GameContext.Provider>
+    </GameListContext.Provider>
+  );
 };
 
-export default GameContextProvider;
+export { GameContext, GameListContext };
+export default GameProvider;
