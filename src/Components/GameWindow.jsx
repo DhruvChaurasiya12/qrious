@@ -2,6 +2,7 @@ import "./gamewindow.css";
 import viteLogo from "/vite.svg";
 import Game1 from "./Games/game1";
 import Game2 from "./Games/game2";
+import Game4 from "./Games/game4"
 import { useEffect, useRef, useState } from "react";
 import gameData from "../utitlities";
 import ResizeObserver from "resize-observer-polyfill";
