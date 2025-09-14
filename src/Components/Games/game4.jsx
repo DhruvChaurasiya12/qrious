@@ -1,7 +1,50 @@
-
-import { useState, useEffect } from "react";
+import { GameContext } from "./../GameContext";
+import { useState, useEffect, useContext } from "react";
 
 export default function Game4({ gameCollections }) {
+  
+  const {
+    title,
+    setTitle,
+    videoUrls,
+    setVideoUrls,
+    theory,
+    setTheory,
+    references,
+    setReferences,
+    hints,
+    setHints,
+  } = useContext(GameContext);
+
+  useEffect(() => {
+    setTitle("Percentage Game");
+    setVideoUrls([
+      "https://www.youtube.com/embed/3Xc3CA655Y4?si=U1eXz9kYbG5m1m8R",
+    ]);
+    setTheory([
+      "Percent game is where you ",
+      "Use arrow keys to change the snake's direction.",
+      "The game ends if the snake runs into itself.",
+    ]);
+    setReferences([
+      {
+        title: "Percentage Game - Wikipedia",
+        link: "https://en.wikipedia.org/wiki/Snake_(video_game_genre)",
+      },
+      {
+        title: "How to Play Percent game",
+        link: "https://www.wikihow.com/Play-Snake",
+      },
+    ]);
+
+    setHints([
+      "Use the arrow keys to control the snake's direction.",
+      "Try to eat the food (red square) to grow longer.",
+      "Avoid running into yourself!",
+    ]);
+  }, []);
+  const dimRef = gameCollections.dimensions;
+
   const questions = [
     {
       q: "What is 25% of 100?",
@@ -385,7 +428,8 @@ export default function Game4({ gameCollections }) {
             fontWeight: "bold",
             color: "#64B5F6",
           }}>
-            {userFillPercentage}% Full
+            {/* {userFillPercentage}% Full */}
+            ❓%
           </div>
         </div>
       </div>

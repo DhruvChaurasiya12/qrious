@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
+import { GameContext } from "./../GameContext";
 
 const Game5 = ({ gameCollections }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -50,6 +51,48 @@ const Game5 = ({ gameCollections }) => {
       difficulty: "hard"
     }
   ];
+
+  const {
+    title,
+    setTitle,
+    videoUrls,
+    setVideoUrls,
+    theory,
+    setTheory,
+    references,
+    setReferences,
+    hints,
+    setHints,
+  } = useContext(GameContext);
+
+  useEffect(() => {
+    setTitle("Timed Quiz Game");
+    setVideoUrls([
+      "https://www.youtube.com/embed/3Xc3CA655Y4?si=U1eXz9kYbG5m1m8R",
+    ]);
+    setTheory([
+      "Percent game is where you ",
+      "Use arrow keys to change the snake's direction.",
+      "The game ends if the snake runs into itself.",
+    ]);
+    setReferences([
+      {
+        title: "Percentage Game - Wikipedia",
+        link: "https://en.wikipedia.org/wiki/Snake_(video_game_genre)",
+      },
+      {
+        title: "How to Play Percent game",
+        link: "https://www.wikihow.com/Play-Snake",
+      },
+    ]);
+
+    setHints([
+      "Use the arrow keys to control the snake's direction.",
+      "Try to eat the food (red square) to grow longer.",
+      "Avoid running into yourself!",
+    ]);
+  }, []);
+  const dimRef = gameCollections.dimensions;
 
   // Timer logic
   useEffect(() => {
@@ -210,7 +253,100 @@ const Game5 = ({ gameCollections }) => {
           </button>
           <div className="hint">Press SPACEBAR to restart</div>
         </div>
+        <style jsx>{`
+          .quiz-container result-screen {
+            width: 100%;
+            height: 100vh;
+            background: #808080; /* grey background */
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+          }
+
+          .result-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+          }
+                
+          .result-title {
+            font-size: 32px;
+            margin-bottom: 25px;
+          }
+                
+          .score-display {
+            margin-bottom: 30px;
+          }
+                
+          .final-score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 5px;
+          }
+                
+          .score-label {
+            font-size: 16px;
+            opacity: 0.8;
+          }
+                
+          .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+          }
+                
+          .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+                
+          .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #64B5F6;
+          }
+                
+          .stat-label {
+            font-size: 14px;
+            opacity: 0.7;
+          }
+                
+          .play-again-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
+                
+          .play-again-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+          }
+                
+          .hint {
+            font-size: 12px;
+            opacity: 0.6;
+          }
+        `}</style>
       </div>
+      
     );
   }
 
@@ -256,7 +392,7 @@ const Game5 = ({ gameCollections }) => {
         {/* Options */}
         <div className="options-grid">
           {question.options.map((option, index) => (
-            <button
+            <button style={{background:"var(--light-gray)"}}
               key={index}
               className={getAnswerButtonClass(index)}
               onClick={() => handleAnswerClick(index)}
@@ -283,7 +419,7 @@ const Game5 = ({ gameCollections }) => {
         .quiz-container {
           width: 100%;
           height: 100vh;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: "var(--primary-color)";
           display: flex;
           flex-direction: column;
           padding: 20px;
@@ -390,7 +526,7 @@ const Game5 = ({ gameCollections }) => {
           position: absolute;
           top: -10px;
           right: 20px;
-          padding: 5px 15px;
+          padding: 20px 15px;
           border-radius: 15px;
           font-size: 12px;
           font-weight: bold;
