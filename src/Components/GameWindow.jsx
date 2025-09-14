@@ -107,7 +107,7 @@ export default () => {
     setCurrentGame(lazy(() => import(gameCollectionList[gameIndex].component)));
     setGameLoading(true);
     setGameName(gameCollectionList[gameIndex].name);
-    setTimeout(() => setGameLoading(false), 4000);
+    setTimeout(() => setGameLoading(false), 1000);
   }, [gameIndex]);
 
   return (

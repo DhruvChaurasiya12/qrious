@@ -239,7 +239,7 @@ export default function Game4({ gameCollections }) {
         height: "100vh",
         padding: "10px",
         fontFamily: "Arial, sans-serif",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: "var(--primary-color)",
         color: "white",
         boxSizing: "border-box",
         display: "flex",
